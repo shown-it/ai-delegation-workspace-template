@@ -49,11 +49,12 @@ git push -u origin main
 
 ### 2. 自分用に初期化する
 
-1. `AGENTS.md` の `<USER_NAME>`、`<REPO_NAME>`、`<REMOTE_URL>` などを自分用に書き換える。
-2. AI に `prompts/init-profile.md` を実行してもらい、初回インタビューから `context/profile.md` を作る。
-3. 最初の仕事・生活領域を `context/projects/` または `context/reference/` に1件だけ作る。
-4. 1週間ほど手動で使い、`context/feedback.md` が育つか確認する。
-5. 問題なければ `.github/workflows/scheduled-jobs.yml` を自分の環境に合わせて有効化する。
+1. AI に `prompts/init-profile.md` を実行してもらう。
+   - 初回インタビューから `context/profile.md` を作る。
+   - `AGENTS.md` の `<USER_NAME>`、`<REPO_NAME>`、`<REMOTE_URL>`、`<PRIMARY_LANGUAGE>` も自分用に置き換える。
+2. 最初の仕事・生活領域を `context/projects/` または `context/reference/` に1件だけ作る。
+3. 1週間ほど手動で使い、`context/feedback.md` が育つか確認する。
+4. 問題なければ `.github/workflows/scheduled-jobs.yml` を自分の環境に合わせて有効化する。
 
 ## 定期運用
 
@@ -73,7 +74,7 @@ git push -u origin main
 ## 最初に AI へ頼むこと
 
 ```text
-prompts/init-profile.md を読み、私に必要な質問をして context/profile.md を初期化してください。
+prompts/init-profile.md を読み、私に必要な質問をして AGENTS.md と context/profile.md を初期化してください。
 ```
 
 次に、実際のタスクをこの repo 上で頼みます。いまいちな応答があったら、その場で直すだけでなく「次からどうするか」を `context/feedback.md` に書き戻してもらいます。

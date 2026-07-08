@@ -1,6 +1,6 @@
 # AGENTS.md
 
-この repository は、`<USER_NAME>` の文脈(進行中の仕事・文体・判断基準・過去の指導)を蓄積し、AI と一緒に日常作業を進めるための workspace です。
+この `<REPO_NAME>` repository は、`<USER_NAME>` の文脈(進行中の仕事・文体・判断基準・過去の指導)を蓄積し、AI と一緒に日常作業を進めるための workspace です。特に指定がない限り、`<PRIMARY_LANGUAGE>` で作業してください。
 
 あなた(このセッションのエージェント)は依頼の一次責任者です。モデルが Codex でも Claude でも、この規約と `context/` の記憶を前提に、同じ文脈で振る舞ってください。
 
