@@ -19,13 +19,41 @@ Log layer     minutes/ generated/       作業ログ・生成物
 
 ## セットアップ
 
-1. このテンプレートから新しい repo を作る。
-2. まず private repo として始める。個人情報や未公開の判断を扱うためです。
-3. `AGENTS.md` の `<USER_NAME>`、`<REPO_NAME>`、`<REMOTE_URL>` などを自分用に書き換える。
-4. AI に `prompts/init-profile.md` を実行してもらい、初回インタビューから `context/profile.md` を作る。
-5. 最初の仕事・生活領域を `context/projects/` または `context/reference/` に1件だけ作る。
-6. 1週間ほど手動で使い、`context/feedback.md` が育つか確認する。
-7. 問題なければ `.github/workflows/scheduled-jobs.yml` を自分の環境に合わせて有効化する。
+### 1. 新しい repo を作る
+
+おすすめは GitHub のテンプレート機能です。
+
+1. この repo の GitHub ページで **Use this template** を押す。
+2. **Create a new repository** を選ぶ。
+3. repo 名を決める。例: `my-ai-workspace`
+4. まず **Private** で作る。個人情報や未公開の判断を扱うためです。
+5. 作成した repo を clone する。
+
+ローカルで複製して始める場合は、テンプレート側の git 履歴を外してから、自分の repo として初期化します。
+
+```bash
+git clone https://github.com/shown-it/ai-delegation-workspace-template.git my-ai-workspace
+cd my-ai-workspace
+rm -rf .git
+git init -b main
+git add README.md AGENTS.md CLAUDE.md .gitignore .github context prompts minutes generated examples
+git commit -m "Initial AI delegation workspace"
+```
+
+GitHub に空 repo を作ったら、remote を追加して push します。
+
+```bash
+git remote add origin https://github.com/<YOUR_ACCOUNT>/<YOUR_REPO>.git
+git push -u origin main
+```
+
+### 2. 自分用に初期化する
+
+1. `AGENTS.md` の `<USER_NAME>`、`<REPO_NAME>`、`<REMOTE_URL>` などを自分用に書き換える。
+2. AI に `prompts/init-profile.md` を実行してもらい、初回インタビューから `context/profile.md` を作る。
+3. 最初の仕事・生活領域を `context/projects/` または `context/reference/` に1件だけ作る。
+4. 1週間ほど手動で使い、`context/feedback.md` が育つか確認する。
+5. 問題なければ `.github/workflows/scheduled-jobs.yml` を自分の環境に合わせて有効化する。
 
 ## 定期運用
 
