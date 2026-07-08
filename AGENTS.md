@@ -75,7 +75,9 @@
 
 ## Scheduled Jobs
 
+- 週次: `prompts/weekly-distill.md` — 直近 minutes/ から持続的な事実・決定・指導を context/ に蒸留する。
 - 週次: `prompts/consolidate.md` — context/ の重複統合・矛盾解消・INDEX 刈り込み。
+- 月次: `prompts/monthly-review.md` — 1ヶ月分の運用を棚卸しし、案件・記憶・参照情報の育て方を見直す。
 - 月次: `prompts/privacy-audit.md` — Tier S 混入チェック。
 - 任意: `prompts/briefing.md` — 今日の論点まとめ。
 - 実行手段は `.github/workflows/scheduled-jobs.yml` を参考にする。初期状態では手動実行のみ。

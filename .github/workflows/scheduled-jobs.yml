@@ -8,14 +8,17 @@ on:
         required: true
         type: choice
         options:
+          - weekly-distill
           - consolidate
+          - monthly-review
           - privacy-audit
-
-# 定期実行したい場合は、運用が安定してから schedule を追加してください。
-# 例:
-# schedule:
-#   - cron: "0 23 * * 0"  # consolidate: 月曜 08:00 JST
-#   - cron: "0 23 1 * *"  # privacy-audit: 毎月2日 08:00 JST
+  # 定期実行したい場合は、運用が安定してから schedule を追加してください。
+  # 例:
+  # schedule:
+  #   - cron: "0 23 * * 0"   # weekly-distill: 月曜 08:00 JST
+  #   - cron: "10 23 * * 0"  # consolidate: 月曜 08:10 JST
+  #   - cron: "0 23 1 * *"   # monthly-review: 毎月2日 08:00 JST
+  #   - cron: "10 23 1 * *"  # privacy-audit: 毎月2日 08:10 JST
 
 concurrency:
   group: scheduled-jobs
@@ -29,6 +32,22 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
+      - name: Determine job
+        id: job
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            NAME="${{ inputs.job }}"
+          else
+            case "${{ github.event.schedule }}" in
+              "0 23 * * 0")   NAME=weekly-distill ;;
+              "10 23 * * 0")  NAME=consolidate ;;
+              "0 23 1 * *")   NAME=monthly-review ;;
+              "10 23 1 * *")  NAME=privacy-audit ;;
+              *) echo "::error::unknown schedule"; exit 1 ;;
+            esac
+          fi
+          echo "name=$NAME" >> "$GITHUB_OUTPUT"
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
@@ -50,7 +69,7 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           codex exec --sandbox danger-full-access \
-            "prompts/${{ inputs.job }}.md を読み、その手順に従って実行してください。ここは CI 環境なので、commit と push はワークフロー側が行います。あなたはファイルの読み書きまでを行ってください。" \
+            "prompts/${{ steps.job.outputs.name }}.md を読み、その手順に従って実行してください。ここは CI 環境なので、commit と push はワークフロー側が行います。あなたはファイルの読み書きまでを行ってください。" \
             < /dev/null
 
       - name: Commit and push results
@@ -61,7 +80,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "::notice::No changes to commit"
           else
-            git commit -m "chore: scheduled ${{ inputs.job }} run"
+            git commit -m "chore: scheduled ${{ steps.job.outputs.name }} run"
             git pull --rebase origin main
             git push origin main
           fi

@@ -27,6 +27,21 @@ Log layer     minutes/ generated/       作業ログ・生成物
 6. 1週間ほど手動で使い、`context/feedback.md` が育つか確認する。
 7. 問題なければ `.github/workflows/scheduled-jobs.yml` を自分の環境に合わせて有効化する。
 
+## 定期運用
+
+最初は手動で構いません。運用が安定したら、次のジョブを定期実行します。
+
+- 週次: `prompts/weekly-distill.md`
+  - 直近の `minutes/` を読み、書き戻し漏れを `context/` に蒸留する。
+- 週次: `prompts/consolidate.md`
+  - `context/` の重複・矛盾・INDEX 漏れを整理する。
+- 月次: `prompts/monthly-review.md`
+  - 1ヶ月分の `minutes/` と `context/` を見て、案件の棚卸し・古い記憶の整理候補・次に育てる参照情報を出す。
+- 月次: `prompts/privacy-audit.md`
+  - secrets、業務機密、第三者機微情報の混入を確認する。
+
+`weekly-distill` は「記憶を増やす」ジョブ、`consolidate` は「記憶を整える」ジョブです。
+
 ## 最初に AI へ頼むこと
 
 ```text
@@ -67,4 +82,5 @@ prompts/init-profile.md を読み、私に必要な質問をして context/profi
 - `context/` へ全文を貼らない。持続的に使える事実・好み・判断だけを書く。
 - 作業ログは `minutes/` に残す。
 - 同じ訂正を二度しないため、指摘は `context/feedback.md` に理由と適用方法まで書く。
+- 週1回は `weekly-distill` で `minutes/` から記憶化漏れを拾う。
 - 記憶を消すときは削除ではなく `_archive/` へ移す。
