@@ -13,6 +13,15 @@
 
 ## Session Protocol
 
+### 初回起動時(Bootstrap)
+
+以下のどちらかに当てはまる場合は、通常の依頼に入る前に `prompts/init-profile.md` を読み、その手順に従って初期化を行う:
+
+- `context/profile.md` に `未初期化` が残っている
+- `minutes/` に `YYYYMMDD_テーマ/` 形式の作業ディレクトリがまだ無い
+
+初期化では、本人への短いインタビューを行い、`AGENTS.md` のプレースホルダと `context/profile.md` を更新する。ユーザーが明示的に「初期化は後で」と言った場合だけ、この Bootstrap をスキップしてよい。
+
 ### 開始時
 
 0. remote を使っている場合は `git pull --ff-only` で最新化する。未コミットのユーザー変更がある場合は退避せずそのまま残す。
