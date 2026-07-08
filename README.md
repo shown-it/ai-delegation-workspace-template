@@ -49,7 +49,7 @@ git push -u origin main
 
 ### 2. 自分用に初期化する
 
-1. AI にこの repo を開いて何か頼む。
+1. AI にこの repo を開いて、まず挨拶する。例: `こんにちは`
    - `context/profile.md` が未初期化、または `minutes/` がまだ空なら、`AGENTS.md` の Bootstrap 手順で初回インタビューが始まる。
    - 初回インタビューから `context/profile.md` を作る。
    - `AGENTS.md` の `<USER_NAME>`、`<REPO_NAME>`、`<REMOTE_URL>`、`<PRIMARY_LANGUAGE>` も自分用に置き換える。
@@ -74,7 +74,9 @@ git push -u origin main
 
 ## 初回の動き
 
-通常は、最初に AI が `AGENTS.md` を読んだ時点で Bootstrap が発火します。手動で明示したい場合だけ、次のように頼んでください。
+通常は、最初に AI が `AGENTS.md` を読んだ時点で Bootstrap が発火します。最初のメッセージは `こんにちは` だけで構いません。
+
+手動で明示したい場合だけ、次のように頼んでください。
 
 ```text
 prompts/init-profile.md を読み、AGENTS.md と context/profile.md を初期化してください。
